@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}讲师列表 - 在线学习平台{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="text-center my-4">全部讲师</h2>
+        <div class="row">
+            {% for teacher in teachers %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        {% if teacher.image %}
+                            <img src="{{ teacher.image.url }}" class="card-img-top" alt="{{ teacher.name }}"
+                                 style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <img src="https://via.placeholder.com/200/3498db/ffffff?text={{ teacher.name }}"
+                                 class="card-img-top" alt="{{ teacher.name }}"
+                                 style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ teacher.name }}</h5>
+                            <p class="card-text">所属机构：{{ teacher.org.name }}</p>
+                            <p class="card-text">工作年限：{{ teacher.work_years }}年</p>
+                            <p class="card-text">教学特点：{{ teacher.points }}</p>
+                            <a href="#" class="btn btn-info">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">暂无讲师数据，请先在后台添加</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

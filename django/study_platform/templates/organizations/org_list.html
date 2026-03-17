@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}机构列表 - 在线学习平台{% endblock %}
+
+{% block content %}
+    <h3 class="text-center" style="margin: 30px 0;">全部机构</h3>
+    <div class="row">
+        {% for org in orgs %}
+            <div class="col-md-3 course-item">
+                <div class="thumbnail">
+                    <img src="{{ org.image.url }}" alt="{{ org.name }}" style="height: 200px; object-fit: cover;">
+                    <div class="caption">
+                        <h4>{{ org.name }}</h4>
+                        <p>机构类型：{{ org.get_category_display }}</p>
+                        <p>机构地址：{{ org.address }}</p>
+                        <p>点击量：{{ org.click_nums }}</p>
+                        <a href="#" class="btn btn-success btn-block">查看机构</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-md-12 text-center">
+                <h4>暂无机构，后台可添加</h4>
+            </div>
+        {% endfor %}
+    </div>
+{% for org in orgs %}
+    <div class="card">
+        <img src="{{ org.image.url }}" alt="{{ org.name }}">
+        <h5>{{ org.name }}</h5>
+        <p>类型：{{ org.get_category_display }}</p>
+    </div>
+{% empty %}
+    <p>暂无机构数据</p>
+{% endfor %}
+{% endblock %}

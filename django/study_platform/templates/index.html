@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}首页 - 在线学习平台{% endblock %}
+
+{% block content %}
+    <!-- 广告轮播图 -->
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for banner in banners %}
+                <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            {% for banner in banners %}
+                <div class="item {% if forloop.first %}active{% endif %}">
+                    <a href="{{ banner.url }}">
+                        <img src="{{ banner.image.url }}" class="banner-item img-responsive" alt="{{ banner.title }}">
+                    </a>
+                    <div class="carousel-caption">
+                        <h3>{{ banner.title }}</h3>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="item active">
+                    <img src="https://via.placeholder.com/1200x400" class="banner-item img-responsive" alt="暂无广告">
+                    <div class="carousel-caption">
+                        <h3>暂无广告，后台可添加</h3>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">上一页</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">下一页</span>
+        </a>
+    </div>
+
+    <!-- 推荐课程 -->
+    <h3 class="text-center" style="margin: 30px 0;">推荐课程</h3>
+    <div class="row">
+        {% for course in recommend_courses %}
+            <div class="col-md-3 course-item">
+                <div class="thumbnail">
+                    <img src="{{ course.image.url }}" alt="{{ course.name }}" style="height: 200px; object-fit: cover;">
+                    <div class="caption">
+                        <h4>{{ course.name }}</h4>
+                        <p>难度：{{ course.get_degree_display }}</p>
+                        <p>学习人数：{{ course.students }}人</p>
+                        <a href="/courses/detail/{{ course.id }}/" class="btn btn-primary btn-block">查看详情</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-md-12 text-center">
+                <h4>暂无推荐课程，后台可添加</h4>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ chapter.name }} - 视频播放{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!-- 视频播放区 -->
+        <div class="col-md-8">
+            {% if videos %}
+                <video class="video-player" controls>
+                    <source src="{{ videos.0.video_url.url }}" type="video/mp4">
+                    您的浏览器不支持HTML5视频播放
+                </video>
+            {% else %}
+                <div class="alert alert-warning">该章节暂无视频</div>
+            {% endif %}
+        </div>
+
+        <!-- 章节和视频列表 -->
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ chapter.course.name }} - {{ chapter.name }}</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for video in videos %}
+                            <li class="list-group-item active">{{ video.name }}</li>
+                        {% empty %}
+                            <li class="list-group-item">暂无视频</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

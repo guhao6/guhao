@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.name }} - 课程详情{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!-- 课程封面和信息 -->
+        <div class="col-md-4">
+            <img src="{{ course.image.url }}" alt="{{ course.name }}" class="img-responsive" style="width: 100%; height: 300px; object-fit: cover;">
+            <div class="panel panel-default" style="margin-top: 20px;">
+                <div class="panel-heading">课程信息</div>
+                <div class="panel-body">
+                    <p><strong>课程名称：</strong>{{ course.name }}</p>
+                    <p><strong>课程分类：</strong>{{ course.category.name }}</p>
+                    <p><strong>所属机构：</strong>{{ course.org.name }}</p>
+                    <p><strong>授课老师：</strong>{{ course.teacher.name }}</p>
+                    <p><strong>课程难度：</strong>{{ course.get_degree_display }}</p>
+                    <p><strong>学习时长：</strong>{{ course.learn_times }}分钟</p>
+                    <p><strong>学习人数：</strong>{{ course.students }}人</p>
+                    <button class="btn btn-danger btn-block">立即学习</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 课程详情和章节 -->
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">课程简介</div>
+                <div class="panel-body">
+                    <p>{{ course.detail }}</p>
+                </div>
+            </div>
+
+            <div class="panel panel-default" style="margin-top: 20px;">
+                <div class="panel-heading">课程章节</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for chapter in chapters %}
+                            <li class="list-group-item">
+                                <a href="/courses/video/{{ chapter.id }}/">{{ chapter.name }}</a>
+                                <span class="badge">{{ chapter.learn_times }}分钟</span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">暂无章节</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
