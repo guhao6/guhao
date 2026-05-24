@@ -1,0 +1,7 @@
+Django==4.2.16
+django-ckeditor==6.7.1
+django-crispy-forms==2.0
+crispy-bootstrap4==2023.1
+Pillow==10.2.0
+mysqlclient==2.2.1
+python-dotenv==1.0.1
